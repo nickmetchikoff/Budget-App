@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Monthly Budget Tracker</title>
+  <style>
+    /* Add some basic styling */
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Monthly Budget Tracker</h2>
+    <h3>Enter your budget for this month:</h3>
+    <input type="number" id="budgetInput" placeholder="Enter your budget amount" />
+    <button onclick="setBudget()">Set Budget</button>
+
+    <h3>Enter your transactions:</h3>
+    <input type="text" id="transactionInput" placeholder="Transaction description" />
+    <input type="number" id="amountInput" placeholder="Amount" />
+    <button onclick="addTransaction()">Add Transaction</button>
+
+    <h3>Monthly Budget Summary:</h3>
+    <p id="budgetSummary">No budget set.</p>
+    <h4>Transactions:</h4>
+    <ul id="transactionList"></ul>
+  </div>
+
+  <script>
+    let budget = 0;
+    let transactions = [];
+
+    function setBudget() {
+      const budgetInput = document.getElementById('budgetInput');
+      budget = Number(budgetInput.value);
+      document.getElementById('budgetSummary').textContent = `Budget: $${budget.toFixed(2)}`;
+      budgetInput.value = '';
+    }
+
+    function addTransaction() {
+      const transactionInput = document.getElementById('transactionInput');
+      const amountInput = document.getElementById('amountInput');
+      const transaction = {
+        description: transactionInput.value,
+        amount: Number(amountInput.value)
+      };
+      transactions.push(transaction);
+
+      const transactionList = document.getElementById('transactionList');
+      const transactionItem = document.createElement('li');
+      transactionItem.textContent = `${transaction.description} - $${transaction.amount.toFixed(2)}`;
+      transactionList.appendChild(transactionItem);
+
+      transactionInput.value = '';
+      amountInput.value = '';
+    }
+  </script>
+</body>
+</html>
